@@ -1,11 +1,16 @@
 import { useEffect } from 'react'
+import { I18nextProvider } from 'react-i18next'
 import { useColorScheme } from 'react-native'
+
+import 'intl-pluralrules'
 
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+
+import i18n from '@/i18n'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,10 +54,12 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
+      <I18nextProvider i18n={i18n}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack>
+      </I18nextProvider>
     </ThemeProvider>
   )
 }
