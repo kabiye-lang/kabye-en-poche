@@ -20,7 +20,6 @@ export const resources = {
   },
 } as const
 
-// creating a language detection plugin using expo
 // http://i18next.com/docs/ownplugin/#languagedetector
 const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
