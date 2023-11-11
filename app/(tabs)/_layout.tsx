@@ -1,55 +1,49 @@
-import { Pressable, useColorScheme } from 'react-native'
-
-import { Link, Tabs } from 'expo-router'
-
-import FontAwesome from '@expo/vector-icons/FontAwesome'
+import { Tabs } from 'expo-router'
 
 import { Article, BookOpenText, Lightbulb } from '@/components/icons'
-
-import Colors from '../../constants/Colors'
+import CustomTabBar from '@/components/navigation/tab-bar'
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme()
-
   return (
     <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}
+      tabBar={(props) => <CustomTabBar {...props} />}
+      // screenOptions={{
+      //   tabBarActiveTintColor: colorScheme === 'light' ? brandColors._tintColorLight : brandColors._tintColorDark,
+      // }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Leçons',
-          tabBarIcon: ({ color }) => <Lightbulb color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          title: 'Accueil',
+          tabBarIcon: ({ color, focused }) => <Lightbulb color={color} weight={focused ? 'fill' : 'light'} />,
+          // headerRight: () => (
+          //   <Link href="/modal" asChild>
+          //     <Pressable>
+          //       {({ pressed }) => (
+          //         <FontAwesome
+          //           name="info-circle"
+          //           size={25}
+          //           color={Colors[colorScheme ?? 'light'].text}
+          //           style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+          //         />
+          //       )}
+          //     </Pressable>
+          //   </Link>
+          // ),
         }}
       />
       <Tabs.Screen
         name="dictionary"
         options={{
           title: 'Dictonnaire',
-          tabBarIcon: ({ color }) => <BookOpenText color={color} />,
+          tabBarIcon: ({ color, focused }) => <BookOpenText color={color} weight={focused ? 'fill' : 'light'} />,
         }}
       />
       <Tabs.Screen
         name="resources"
         options={{
           title: 'Ressources',
-          tabBarIcon: ({ color }) => <Article color={color} />,
+          tabBarIcon: ({ color, focused }) => <Article color={color} weight={focused ? 'fill' : 'light'} />,
         }}
       />
     </Tabs>

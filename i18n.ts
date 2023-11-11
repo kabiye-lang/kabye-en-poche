@@ -25,19 +25,20 @@ const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
   async: true, // async detection
   detect: async (
-    _callback: (_lng: string | readonly string[] | undefined) => void | undefined
+    callback: (_lng: string | readonly string[] | undefined) => void | undefined
   ): Promise<string | readonly string[] | undefined> => {
     try {
       await AsyncStorage.getItem('user-language').then((language) => {
         if (language) {
-          return language
+          return callback(language)
         }
         // We will get back a string like "en-US".
         console.log(Localization.locale)
-        return Localization.locale
+        return callback(Localization.locale)
       })
     } catch (error) {
-      return Localization.locale
+      // @ts-expect-error Type 'void | undefined' is not assignable to type 'string | readonly string[] | undefined'.
+      return callback(Localization.locale)
     }
   },
   //   init: () => {},

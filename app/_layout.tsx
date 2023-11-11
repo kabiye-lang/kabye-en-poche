@@ -1,35 +1,107 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import { useColorScheme } from 'react-native'
 
 import 'intl-pluralrules'
 
-import { useFonts } from 'expo-font'
-import { SplashScreen, Stack } from 'expo-router'
+import { useColorScheme } from 'react-native'
 
-import FontAwesome from '@expo/vector-icons/FontAwesome'
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { loadAsync } from 'expo-font'
+import { SplashScreen, Stack } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
+
+import {
+  Figtree_300Light,
+  Figtree_300Light_Italic,
+  Figtree_400Regular,
+  Figtree_400Regular_Italic,
+  Figtree_500Medium,
+  Figtree_500Medium_Italic,
+  Figtree_600SemiBold,
+  Figtree_600SemiBold_Italic,
+  Figtree_700Bold,
+  Figtree_700Bold_Italic,
+  Figtree_800ExtraBold,
+  Figtree_800ExtraBold_Italic,
+  Figtree_900Black,
+  Figtree_900Black_Italic,
+} from '@expo-google-fonts/figtree'
+import {
+  IBMPlexSansHebrew_100Thin,
+  IBMPlexSansHebrew_200ExtraLight,
+  IBMPlexSansHebrew_300Light,
+  IBMPlexSansHebrew_400Regular,
+  IBMPlexSansHebrew_500Medium,
+  IBMPlexSansHebrew_600SemiBold,
+  IBMPlexSansHebrew_700Bold,
+} from '@expo-google-fonts/ibm-plex-sans-hebrew'
+import { ThemeProvider } from '@react-navigation/native'
 
 import i18n from '@/i18n'
+import {
+  configureDesignSystem,
+  getNavigationTheme,
+  getStatusBarBGColor,
+  getStatusBarStyle,
+} from '@/utils/design-system'
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router'
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-}
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync()
+// eslint-disable-next-line
+require('react-native-ui-lib/config').setConfig({ appScheme: 'default' })
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  })
+  const [ready, setReady] = useState(false)
+  const [error, setError] = useState(false)
+  const colorScheme = useColorScheme()
+
+  const onLaunch = useCallback(async () => {
+    let fontsError = false
+    configureDesignSystem()
+    try {
+      await Promise.all([
+        loadAsync({
+          IBMPlexSansHebrew_100Thin,
+          IBMPlexSansHebrew_200ExtraLight,
+          IBMPlexSansHebrew_300Light,
+          IBMPlexSansHebrew_400Regular,
+          IBMPlexSansHebrew_500Medium,
+          IBMPlexSansHebrew_600SemiBold,
+          IBMPlexSansHebrew_700Bold,
+          Figtree_300Light,
+          Figtree_400Regular,
+          Figtree_500Medium,
+          Figtree_600SemiBold,
+          Figtree_700Bold,
+          Figtree_800ExtraBold,
+          Figtree_900Black,
+          Figtree_300Light_Italic,
+          Figtree_400Regular_Italic,
+          Figtree_500Medium_Italic,
+          Figtree_600SemiBold_Italic,
+          Figtree_700Bold_Italic,
+          Figtree_800ExtraBold_Italic,
+          Figtree_900Black_Italic,
+        }),
+      ])
+    } catch (error) {
+      console.log(error)
+      // crashlytics().recordError(error as Error)
+      fontsError = true
+    }
+
+    if (fontsError) {
+      setError(true)
+    } else {
+      setReady(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    // crashlytics().log('App mounted.')
+    onLaunch()
+  }, [onLaunch])
+
+  useEffect(() => {
+    configureDesignSystem()
+  }, [colorScheme])
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -37,24 +109,29 @@ export default function RootLayout() {
   }, [error])
 
   useEffect(() => {
-    if (loaded) {
+    if (ready) {
       SplashScreen.hideAsync()
     }
-  }, [loaded])
+  }, [ready])
 
-  if (!loaded) {
-    return null
+  const NotReady = useMemo(() => {
+    // [Tip]
+    // You can show loading state here.
+    return <></>
+  }, [])
+
+  if (!ready) {
+    return NotReady
   }
 
   return <RootLayoutNav />
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme()
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={getNavigationTheme()}>
       <I18nextProvider i18n={i18n}>
+        <StatusBar style={getStatusBarStyle()} backgroundColor={getStatusBarBGColor()} />
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
