@@ -22,5 +22,22 @@
         }
       }
     }
+  },
+  "keyboard": {
+    "title": "Clavier"
+  },
+  "navigation": {
+    "home": {
+      "title": "Accueil"
+    },
+    "dictionary": {
+      "title": "Dictonnaire"
+    },
+    "keyboard": {
+      "title": "Clavier"
+    },
+    "resources": {
+      "title": "Ressources"
+    }
   }
 }

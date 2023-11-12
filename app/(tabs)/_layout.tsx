@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next'
+
 import { Tabs } from 'expo-router'
 
-import { Article, BookOpenText, Lightbulb } from '@/components/icons'
+import { Article, BookOpenText, Keyboard, Lightbulb } from '@/components/icons'
 import CustomTabBar from '@/components/navigation/tab-bar'
 
 export default function TabLayout() {
+  const { t } = useTranslation()
   return (
     <Tabs
       tabBar={(props) => <CustomTabBar {...props} />}
@@ -14,7 +17,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Accueil',
+          title: t('navigation.home.title'),
           tabBarIcon: ({ color, focused }) => <Lightbulb color={color} weight={focused ? 'fill' : 'light'} />,
           // headerRight: () => (
           //   <Link href="/modal" asChild>
@@ -35,14 +38,21 @@ export default function TabLayout() {
       <Tabs.Screen
         name="dictionary"
         options={{
-          title: 'Dictonnaire',
+          title: t('navigation.dictionary.title'),
           tabBarIcon: ({ color, focused }) => <BookOpenText color={color} weight={focused ? 'fill' : 'light'} />,
+        }}
+      />
+      <Tabs.Screen
+        name="keyboard"
+        options={{
+          title: t('navigation.keyboard.title'),
+          tabBarIcon: ({ color, focused }) => <Keyboard color={color} weight={focused ? 'fill' : 'light'} />,
         }}
       />
       <Tabs.Screen
         name="resources"
         options={{
-          title: 'Ressources',
+          title: t('navigation.resources.title'),
           tabBarIcon: ({ color, focused }) => <Article color={color} weight={focused ? 'fill' : 'light'} />,
         }}
       />
