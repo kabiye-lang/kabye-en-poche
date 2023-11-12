@@ -21,10 +21,14 @@
           "title": "Nous contacter"
         }
       }
-    }
+    },
+    "title": "Ressources"
   },
   "keyboard": {
-    "title": "Clavier"
+    "title": "Clavier",
+    "space": "Espace",
+    "copy": "Copier",
+    "clear": "Effacer"
   },
   "navigation": {
     "home": {

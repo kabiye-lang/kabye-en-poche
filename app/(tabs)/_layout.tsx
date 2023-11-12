@@ -4,15 +4,17 @@ import { Tabs } from 'expo-router'
 
 import { Article, BookOpenText, Keyboard, Lightbulb } from '@/components/icons'
 import CustomTabBar from '@/components/navigation/tab-bar'
+import { tabScreenDefaultOptions } from '@/utils/design-system'
 
 export default function TabLayout() {
   const { t } = useTranslation()
   return (
     <Tabs
       tabBar={(props) => <CustomTabBar {...props} />}
-      // screenOptions={{
-      //   tabBarActiveTintColor: colorScheme === 'light' ? brandColors._tintColorLight : brandColors._tintColorDark,
-      // }}
+      screenOptions={{
+        ...tabScreenDefaultOptions(),
+        headerShown: false,
+      }}
     >
       <Tabs.Screen
         name="index"

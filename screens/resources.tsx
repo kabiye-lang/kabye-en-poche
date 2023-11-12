@@ -7,6 +7,7 @@ import * as Application from 'expo-application'
 import { Link, router } from 'expo-router'
 
 import { BookOpenText, CaretRight, Users } from '@/components/icons'
+import { ScreenTitle } from '@/components/screen-title'
 import { Text, View } from '@/components/themed'
 
 export default function ResourcesScreen() {
@@ -69,7 +70,7 @@ export default function ResourcesScreen() {
   return (
     <View flex>
       <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
-        {/* <AppBar title="Mon compte" /> */}
+        <ScreenTitle title={t('resources.title')} />
         {listItems.map((listItem) => {
           return (
             <View key={'listItem-' + listItem.title} marginB-40>

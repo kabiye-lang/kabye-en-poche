@@ -4,28 +4,23 @@ import { Card } from 'react-native-ui-lib'
 
 import { router } from 'expo-router'
 
+import { ScreenTitle } from '@/components/screen-title'
 import { Text, View } from '@/components/themed'
-
-const ALPHABET_LIST = ['a', 'b']
+import alphabetList from '@/utils/data/alphabet/list'
 
 export default function AlphabetScreen() {
   const { t } = useTranslation()
   return (
     <View flex>
       <FlatList
-        numColumns={2}
-        data={ALPHABET_LIST}
+        numColumns={3}
+        data={alphabetList}
         contentContainerStyle={{ paddingHorizontal: 15, gap: 5 }}
-        columnWrapperStyle={{ maxWidth: '50%', gap: 5 }}
-        keyExtractor={(item) => item}
-        ListHeaderComponent={() => <Text style={{ paddingVertical: 20 }}>{t('alphabet.screen.title')}</Text>}
-        renderItem={({ item, index }) => (
-          <View
-            style={[
-              { position: 'relative', width: '100%', alignItems: 'center' },
-              index % 2 === 0 ? { paddingRight: 8 } : { paddingLeft: 8 },
-            ]}
-          >
+        columnWrapperStyle={{ maxWidth: '33.33%', gap: 5 }}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={() => <ScreenTitle title={t('alphabet.screen.title')} />}
+        renderItem={({ item }) => (
+          <View style={[{ position: 'relative', width: '100%', alignItems: 'center' }]}>
             <Card
               flex
               center
@@ -33,7 +28,7 @@ export default function AlphabetScreen() {
               onPress={() =>
                 router.push({
                   pathname: '/alphabet/[letter]',
-                  params: { letter: item },
+                  params: { letter: item.id },
                 })
               }
               elevation={2}
@@ -41,7 +36,7 @@ export default function AlphabetScreen() {
             >
               <View>
                 <Text h2 family="fig5">
-                  {item}
+                  {item.id}
                 </Text>
               </View>
             </Card>

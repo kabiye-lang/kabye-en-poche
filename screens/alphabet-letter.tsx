@@ -15,15 +15,18 @@ import { router, useLocalSearchParams } from 'expo-router'
 
 import { CaretLeft } from '@/components/icons'
 import { Button, Text, View } from '@/components/themed'
+import alphabetList from '@/utils/data/alphabet/list'
 
 // import { useRefreshOnFocus } from '@/hooks/useRefreshOnFocus'
 
 export default function AlphabetLetterScreen() {
   const { t } = useTranslation()
-  const { letter } = useLocalSearchParams()
+  const { letter: letterParam } = useLocalSearchParams()
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(false)
   const safeAreaInsets = useSafeAreaInsets()
+
+  const letter = letterParam ? alphabetList.find((item) => item.id === decodeURI(letterParam as string)) : null
 
   const sv = useSharedValue<number>(0)
   const scrollHandler = useAnimatedScrollHandler({
@@ -130,7 +133,9 @@ export default function AlphabetLetterScreen() {
       </Animated.View>
       <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
         <View center style={{ height: 200, paddingTop: safeAreaInsets.top }}>
-          <Text h1>{letter}</Text>
+          <Text h1>
+            {letter?.id} - {letter?.caps}
+          </Text>
         </View>
         <View paddingV-10 paddingH-15>
           <Text h4 family="fig6">
