@@ -134,6 +134,15 @@ function RootLayoutNav() {
         <StatusBar style={getStatusBarStyle()} backgroundColor={getStatusBarBGColor()} />
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+
+          <Stack.Screen
+            name="alphabet/[letter]"
+            /*getId={() => String(Date.now())}*/ options={{
+              title: '',
+              headerShown: false,
+              headerTransparent: true,
+            }}
+          />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         </Stack>
       </I18nextProvider>

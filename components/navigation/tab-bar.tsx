@@ -9,7 +9,7 @@ import { usePathname } from 'expo-router'
 
 import { useTheme } from '@react-navigation/native'
 
-import { Text, View } from '@/components/themeds'
+import { Text, View } from '@/components/themed'
 import { fonts } from '@/utils/design-system'
 
 const SCREEN_WIDTH = Math.min(Dimensions.get('screen').width, 500)

@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from 'react-native'
 
 import { StatusBar } from 'expo-status-bar'
 
-import { Text, View } from '../components/themeds'
+import { Text, View } from '../components/themed'
 
 export default function ModalScreen() {
   return (
