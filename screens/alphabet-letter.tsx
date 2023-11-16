@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator } from 'react-native'
 import Animated, {
   interpolate,
   interpolateColor,
@@ -9,21 +7,22 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Colors } from 'react-native-ui-lib'
+import { Badge, Colors } from 'react-native-ui-lib'
 
 import { router, useLocalSearchParams } from 'expo-router'
 
+import Markdown from '@jonasmerlin/react-native-markdown-display'
+
 import { CaretLeft } from '@/components/icons'
 import { Button, Text, View } from '@/components/themed'
-import alphabetList from '@/utils/data/alphabet/list'
+import alphabetList from '@/utils/data/alphabet.json'
+import { LETTER_TYPE_COLORS, MARKDOWN_STYLE } from '@/utils/design-system'
 
 // import { useRefreshOnFocus } from '@/hooks/useRefreshOnFocus'
 
 export default function AlphabetLetterScreen() {
   const { t } = useTranslation()
   const { letter: letterParam } = useLocalSearchParams()
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(false)
   const safeAreaInsets = useSafeAreaInsets()
 
   const letter = letterParam ? alphabetList.find((item) => item.id === decodeURI(letterParam as string)) : null
@@ -47,28 +46,7 @@ export default function AlphabetLetterScreen() {
     }
   })
 
-  const alphabetLetter = { title: 'letter here' }
-
-  useEffect(() => {
-    console.log(letter)
-    if (!letter) {
-      setError(true)
-      setIsLoading(false)
-    } else {
-      setIsLoading(false)
-    }
-  }, [])
-
-  if (isLoading) {
-    return (
-      <View flex center>
-        <ActivityIndicator />
-      </View>
-    )
-    // return <LoaderScreen message={'Chargement en cours'} loaderColor={Colors.primary} />
-  }
-
-  if (error) {
+  if (!letter) {
     return (
       <View flex paddingT-20 useSafeArea>
         <Text paddingT-20>{t('common.error.general')}</Text>
@@ -107,7 +85,7 @@ export default function AlphabetLetterScreen() {
         >
           <View>
             <Button
-              title="Retour"
+              title={t('common.labels.back')}
               round
               iconSource={() => <CaretLeft size={20} weight="bold" color={Colors.black} />}
               backgroundColor={Colors.white}
@@ -126,76 +104,30 @@ export default function AlphabetLetterScreen() {
             ]}
           >
             <Text numberOfLines={1} lg family="fig5">
-              {alphabetLetter.title}
+              {letter?.id} - {letter?.caps}
             </Text>
           </Animated.View>
         </View>
       </Animated.View>
       <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
         <View center style={{ height: 200, paddingTop: safeAreaInsets.top }}>
-          <Text h1>
+          <Text h1 marginB-10>
             {letter?.id} - {letter?.caps}
           </Text>
+          <Badge
+            // @ts-expect-error string not found
+            label={t(`alphabet.letter_type.${letter.type}`)}
+            size={32}
+            labelStyle={{ paddingHorizontal: 20 }}
+            // @ts-expect-error string index
+            backgroundColor={LETTER_TYPE_COLORS[letter.type]}
+          />
         </View>
         <View paddingV-10 paddingH-15>
-          <Text h4 family="fig6">
-            {alphabetLetter.title}
-          </Text>
-
-          <Text family="fig6" marginT-30 marginB-10 lg $textNeutralHeavy>
+          {/* <Text family="fig6" marginT-30 marginB-10 lg $textNeutralHeavy>
             Description
-          </Text>
-          <Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, repudiandae. Facilis unde quo sunt
-            porro voluptas. Expedita aspernatur quas natus, sed debitis quibusdam, dignissimos similique excepturi nulla
-            corporis libero sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat architecto
-            debitis inventore ut quam nulla ad odit autem sequi officia eveniet ratione dolorum illum voluptas
-            cupiditate, ipsam perspiciatis temporibus quas.
-          </Text>
-
-          <Text family="fig6" marginT-30 marginB-10 lg $textNeutralHeavy>
-            Description
-          </Text>
-          <Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, repudiandae. Facilis unde quo sunt
-            porro voluptas. Expedita aspernatur quas natus, sed debitis quibusdam, dignissimos similique excepturi nulla
-            corporis libero sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat architecto
-            debitis inventore ut quam nulla ad odit autem sequi officia eveniet ratione dolorum illum voluptas
-            cupiditate, ipsam perspiciatis temporibus quas.
-          </Text>
-
-          <Text family="fig6" marginT-30 marginB-10 lg $textNeutralHeavy>
-            Description
-          </Text>
-          <Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, repudiandae. Facilis unde quo sunt
-            porro voluptas. Expedita aspernatur quas natus, sed debitis quibusdam, dignissimos similique excepturi nulla
-            corporis libero sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat architecto
-            debitis inventore ut quam nulla ad odit autem sequi officia eveniet ratione dolorum illum voluptas
-            cupiditate, ipsam perspiciatis temporibus quas.
-          </Text>
-
-          <Text family="fig6" marginT-30 marginB-10 lg $textNeutralHeavy>
-            Description
-          </Text>
-          <Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, repudiandae. Facilis unde quo sunt
-            porro voluptas. Expedita aspernatur quas natus, sed debitis quibusdam, dignissimos similique excepturi nulla
-            corporis libero sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat architecto
-            debitis inventore ut quam nulla ad odit autem sequi officia eveniet ratione dolorum illum voluptas
-            cupiditate, ipsam perspiciatis temporibus quas.
-          </Text>
-
-          <Text family="fig6" marginT-30 marginB-10 lg $textNeutralHeavy>
-            Description
-          </Text>
-          <Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, repudiandae. Facilis unde quo sunt
-            porro voluptas. Expedita aspernatur quas natus, sed debitis quibusdam, dignissimos similique excepturi nulla
-            corporis libero sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat architecto
-            debitis inventore ut quam nulla ad odit autem sequi officia eveniet ratione dolorum illum voluptas
-            cupiditate, ipsam perspiciatis temporibus quas.
-          </Text>
+          </Text> */}
+          <Markdown style={MARKDOWN_STYLE}>{letter.description_fr ?? ''}</Markdown>
         </View>
         <View style={{ height: 70 }} />
       </Animated.ScrollView>

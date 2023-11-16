@@ -11,16 +11,21 @@
     "lint": "eslint --fix .",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "data:download": "node ./scripts/getAlphabet.js"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@digitalartlab/expo-plugin-localization": "^1.0.0",
     "@expo-google-fonts/figtree": "^0.2.3",
     "@expo-google-fonts/ibm-plex-sans-hebrew": "^0.2.3",
+    "@jonasmerlin/react-native-markdown-display": "github:jonasmerlin/react-native-markdown-display",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-community/blur": "^4.3.2",
+    "airtable": "^0.12.2",
+    "dotenv": "^16.3.1",
     "expo": "~49.0.15",
+    "expo-clipboard": "~4.3.1",
     "expo-constants": "~14.4.2",
     "expo-linking": "~5.0.2",
     "expo-localization": "~14.3.0",
@@ -40,8 +45,7 @@
     "react-native-screens": "~3.22.0",
     "react-native-ui-lib": "^7.10.0",
     "react-native-web": "~0.19.6",
-    "react-native-webview": "13.2.2",
-    "expo-clipboard": "~4.3.1"
+    "react-native-webview": "13.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

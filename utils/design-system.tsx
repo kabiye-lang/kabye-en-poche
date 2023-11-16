@@ -256,3 +256,20 @@ export const tabScreenDefaultOptions = (): BottomTabNavigationOptions => ({
   tabBarInactiveTintColor: Colors.grey40,
   tabBarStyle: { backgroundColor: Colors.bgColor, borderTopWidth: 0, elevation: 0 },
 })
+
+export const LETTER_TYPE_COLORS = {
+  grapheme: '#7577CD',
+  vowel: '#29ADB2',
+  consonant: '#0766AD',
+  indication: '#968C83',
+}
+
+export const MARKDOWN_STYLE = {
+  body: { fontFamily: fonts.fig3 },
+  text: { fontFamily: fonts.fig3 },
+  strong: { fontFamily: fonts.ibm6 },
+  heading1: { fontFamily: fonts.ibm6 },
+  heading2: { fontFamily: fonts.ibm6 },
+  heading3: { fontFamily: fonts.ibm6 },
+  heading4: { fontFamily: fonts.ibm6 },
+}

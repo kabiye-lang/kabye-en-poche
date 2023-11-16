@@ -144,6 +144,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="terms-and-conditions" options={{ title: '' }} />
         </Stack>
       </I18nextProvider>
     </ThemeProvider>

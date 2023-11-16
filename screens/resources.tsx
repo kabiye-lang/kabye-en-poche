@@ -1,10 +1,10 @@
-import { Fragment, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import { ListItem } from 'react-native-ui-lib'
 
 import * as Application from 'expo-application'
-import { Link, router } from 'expo-router'
+import { Link } from 'expo-router'
 
 import { BookOpenText, CaretRight, Users } from '@/components/icons'
 import { ScreenTitle } from '@/components/screen-title'
@@ -14,47 +14,70 @@ export default function ResourcesScreen() {
   const { t } = useTranslation()
   const listItems = [
     {
+      title: t('resources.items.learn.title'),
+      items: [
+        {
+          href: 'https://academiekabiye.org/',
+          title: t('resources.items.learn.academiekabiye.title'),
+          description: t('resources.items.learn.academiekabiye.description'),
+          icon: <BookOpenText weight="thin" />,
+        },
+        {
+          href: 'https://www.kabiyesekuliye.net/fr',
+          title: t('resources.items.learn.kabiyeessekuliye.title'),
+          description: t('resources.items.learn.kabiyeessekuliye.description'),
+          icon: <BookOpenText weight="thin" />,
+        },
+        {
+          href: 'http://kabyetanaou.over-blog.com/',
+          title: t('resources.items.learn.kabyetanaou.title'),
+          description: t('resources.items.learn.kabyetanaou.description'),
+          icon: <BookOpenText weight="thin" />,
+        },
+        {
+          href: 'https://www.livelingua.com/peace-corps/Kabiye/kabiye2010.pdf',
+          title: t('resources.items.learn.kabyeworkbook.title'),
+          // description: t('resources.items.learn.kabyeworkbook.description'),
+          icon: <BookOpenText weight="thin" />,
+        },
+        {
+          href: 'https://www.lexilogos.com/kabiye_dictionnaire.htm',
+          title: t('resources.items.learn.lexilogos.title'),
+          description: t('resources.items.learn.lexilogos.description'),
+          icon: <BookOpenText weight="thin" />,
+        },
+      ],
+    },
+    {
       title: t('resources.items.support.title'),
       items: [
         {
-          href: '/about/terms-and-conditions',
-          title: t('resources.items.support.terms_and_conditions.title'),
-          description: '',
-          icon: <BookOpenText weight="thin" />,
+          href: 'https://github.com/kabiye-lang/wiki/wiki',
+          title: t('resources.items.support.join.title'),
+          description: t('resources.items.support.join.description'),
+          icon: <Users weight="thin" />,
           external: true,
         },
         {
-          href: '/about/contact',
-          title: t('resources.items.support.contact.title'),
-          icon: <Users weight="thin" />,
-          external: true,
+          href: '/terms-and-conditions',
+          title: t('resources.items.support.terms_and_conditions.title'),
+          description: '',
+          icon: <BookOpenText weight="thin" />,
+          // external: true,
         },
       ],
     },
   ]
   const renderListItem = useCallback(
     (item: (typeof listItems)[0]['items'][0]) => (
-      <ListItem
-        key={'listItemSub-' + item.href}
-        style={{ height: 50 }}
-        onPress={
-          item.external
-            ? () => {
-                router.push({
-                  pathname: '/webv',
-                  params: { url: `${process.env.EXPO_PUBLIC_WEBSITE_URL}${item.href}` },
-                })
-              }
-            : undefined
-        }
-      >
+      <ListItem key={'listItemSub-' + item.href} style={{ height: 60 }} marginB-10>
         <ListItem.Part left>{item.icon}</ListItem.Part>
         <ListItem.Part middle column>
-          <Text lg marginL-10>
+          <Text h6 marginL-10>
             {item.title}
           </Text>
           {item.description && (
-            <Text sm marginL-10>
+            <Text sm marginL-10 numberOfLines={3}>
               {item.description}
             </Text>
           )}
@@ -70,17 +93,15 @@ export default function ResourcesScreen() {
   return (
     <View flex>
       <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
-        <ScreenTitle title={t('resources.title')} />
+        <ScreenTitle title="" />
+
         {listItems.map((listItem) => {
           return (
             <View key={'listItem-' + listItem.title} marginB-40>
-              <Text h4 family="fig6">
+              <Text h4 family="fig6" marginB-10>
                 {listItem.title}
               </Text>
               {listItem.items.map((item) => {
-                if (item.external) {
-                  return <Fragment key={item.href}>{renderListItem(item)}</Fragment>
-                }
                 return (
                   // @ts-expect-error Type 'string' is not assignable to type 'StaticRoutes | RelativePathString | `http${string}`
                   <Link asChild href={item.href} key={item.href}>

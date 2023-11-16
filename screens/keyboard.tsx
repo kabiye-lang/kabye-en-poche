@@ -7,8 +7,8 @@ import * as Clipboard from 'expo-clipboard'
 
 import { ArrowFatLinesUp, ArrowFatLineUp, Backspace, Dot, KeyReturn } from '@/components/icons'
 import { ScreenTitle } from '@/components/screen-title'
-import { Button, View } from '@/components/themed'
-import alphabetList from '@/utils/data/alphabet/list'
+import { Button, Text, View } from '@/components/themed'
+import alphabetList from '@/utils/data/alphabet.json'
 import { fonts } from '@/utils/design-system'
 
 const OTHER_CHARACTERS = [
@@ -57,6 +57,7 @@ const OTHER_CHARACTERS = [
     caps: '`',
   },
 ]
+
 export default function KeyboardScreen() {
   const { t } = useTranslation()
   const [capsLock, setCapsLock] = useState<0 | 1 | 2>(0)
@@ -70,6 +71,14 @@ export default function KeyboardScreen() {
   return (
     <View flex paddingH-5 paddingB-20>
       <ScreenTitle title={t('keyboard.title')} />
+      {/* TODO: translation */}
+      <Text>
+        Utilisez ce clavier pour écrire en Kabiyè. Lorsque vous avez fini, il vous suffit de copier/coller votre texte.
+      </Text>
+      <Text>
+        La touche <ArrowFatLineUp weight="regular" size={16} /> permet de mettre an majuscule. Appuyer longuement pour
+        verouiller le clavier en mode MAJUSCULE.
+      </Text>
       <View flex style={{ justifyContent: 'flex-end' }}>
         <TextField
           value={content}
@@ -94,7 +103,8 @@ export default function KeyboardScreen() {
             paddingT-0
             paddingB-0
             outline
-            style={{ width: 90, minWidth: 90, height: 35 }}
+            style={{ width: 90, minWidth: 90, height: 35, borderColor: Colors.primary }}
+            labelStyle={{ color: Colors.primary }}
             borderRadius={5}
             onPress={() => setContent('')}
           />
@@ -107,7 +117,8 @@ export default function KeyboardScreen() {
             paddingT-0
             paddingB-0
             outline
-            style={{ width: 90, minWidth: 90, height: 35 }}
+            style={{ width: 90, minWidth: 90, height: 35, borderColor: Colors.primary }}
+            labelStyle={{ color: Colors.primary }}
             borderRadius={5}
             onPress={async () => await Clipboard.setStringAsync(content)}
           />
@@ -128,7 +139,7 @@ export default function KeyboardScreen() {
                 paddingT-0
                 paddingB-0
                 style={{ width: buttonWidth, minWidth: buttonWidth, height: 35 }}
-                labelStyle={{ fontFamily: fonts.fig5 }}
+                labelStyle={{ fontFamily: fonts.fig3, fontSize: 20 }}
                 borderRadius={5}
                 onPress={() => changeText(letter)}
               />
