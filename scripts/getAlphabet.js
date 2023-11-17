@@ -32,7 +32,11 @@ base('Alphabet')
       // To fetch the next page of records, call `fetchNextPage`.
       // If there are more records, `page` will get called again.
       // If there are no more records, `done` will get called.
-      fetchNextPage()
+      try {
+        fetchNextPage()
+      } catch (error) {
+        console.log('fetchNextPage error : ' + error)
+      }
     },
     function done(err) {
       if (err) {
