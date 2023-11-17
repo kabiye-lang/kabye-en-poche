@@ -1,7 +1,7 @@
 {
   "name": "kabiye-lang-mobile-app",
-  "version": "1.0.0",
-  "main": "expo-router/entry",
+  "version": "0.0.1",
+  "main": "./index.tsx",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
-    "@digitalartlab/expo-plugin-localization": "^1.0.0",
     "@expo-google-fonts/figtree": "^0.2.3",
     "@expo-google-fonts/ibm-plex-sans-hebrew": "^0.2.3",
     "@jonasmerlin/react-native-markdown-display": "github:jonasmerlin/react-native-markdown-display",
@@ -31,6 +30,7 @@
     "expo-localization": "~14.3.0",
     "expo-router": "^2.0.0",
     "expo-status-bar": "~1.6.0",
+    "expo-updates": "~0.18.17",
     "expo-web-browser": "~12.3.2",
     "i18next": "^23.6.0",
     "intl-pluralrules": "^2.0.1",

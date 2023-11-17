@@ -1,0 +1,42 @@
+name: Setup EAS
+description: Prepare and install everything for EAS
+
+inputs:
+  node-version:
+    description: Version of Node to use
+    default: 18.x
+
+  eas-version:
+    description: Version of EAS CLI to use
+    default: latest
+
+  expo-token:
+    description: Expo token to authenticate with
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: ✅ Check for EXPO_TOKEN
+      shell: bash
+      run: |
+        if [ -z "${{ inputs.expo-token }}" ]; then
+          echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+          exit 1
+        fi
+
+    - name: 🏗 Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: npm
+
+    - name: 🏗 Setup EAS
+      uses: expo/expo-github-action@v8
+      with:
+        eas-version: ${{ inputs.eas-version }}
+        token: ${{ inputs.expo-token }}
+
+    - name: 📦 Install dependencies
+      run: npm install
+      shell: bash

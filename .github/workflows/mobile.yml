@@ -1,0 +1,88 @@
+name: Mobile CD
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform to build for (all/android/ios)
+        type: choice
+        required: true
+        default: all
+        options:
+          - all
+          - android
+          - ios
+      profile:
+        description: EAS build profile (development/preview/production)
+        type: choice
+        required: true
+        default: production
+        options:
+          - development
+          - preview
+          - production
+      submit:
+        description: Auto submit to the store? (production only)
+        type: boolean
+        required: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_update:
+    name: Mobile build / update
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    outputs:
+      version_changed: ${{ steps.checkversion.outputs.changed }}
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup EAS
+        uses: ./.github/actions/setup-eas
+        with:
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Check if version has been updated
+        id: checkversion
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        uses: EndBug/version-check@v2
+        with:
+          diff-search: false
+          file-name: ./package.json
+
+      - name: 🏗 [PR] Create preview
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: expo/expo-github-action/preview@v8
+        with:
+          command: eas update --auto --branch=pr-${{ github.event.number }}
+
+      - name: 🏗 Get data from Airtable
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+        run: npm run data:download
+
+      # - name: 🚀 Push updates
+      #   if: ${{ github.event_name == 'push' && steps.checkversion.outputs.changed == 'false' }}
+      #   # eas variables are applied in this order: eas.json -> eas credentials -> .env file
+      #   # run: |
+      #   #   node scripts/touch-mobile-env.js ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+      #   #   cat .env
+      #   #   eas update --auto --channel ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+      #   run: eas update --auto --channel ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+
+      # - name: 🚀 [Dev] Build app
+      #   if: ${{ (( github.event_name == 'push' && steps.checkversion.outputs.changed == 'true' ) || github.event_name == 'workflow_dispatch' ) && github.ref == 'refs/heads/develop' }}
+      #   run: eas build --non-interactive --wait --platform=${{ github.event.inputs.platform || 'ios' }} --profile=${{ github.event.inputs.profile || 'preview' }}
+
+      # - name: 🚀 [Main] Build app
+      #   if: ${{ ( ( github.event_name == 'push' && steps.checkversion.outputs.changed == 'true' ) || github.event_name == 'workflow_dispatch'  ) && github.ref == 'refs/heads/main' }}
+      #   run: eas build --non-interactive --wait ${{ github.event.inputs.submit && '--auto-submit' || '' }} --platform=${{ github.event.inputs.platform || 'all' }} --profile=${{ github.event.inputs.profile || 'production' }}
