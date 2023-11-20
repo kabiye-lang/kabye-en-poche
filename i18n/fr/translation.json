@@ -15,8 +15,7 @@
     "letter_type": {
       "vowel": "Voyelle",
       "consonant": "Consonne",
-      "grapheme": "Graphème",
-      "indication": "Indication"
+      "grapheme": "Graphème"
     }
   },
   "resources": {
@@ -78,7 +77,8 @@
   },
   "home": {
     "screen": {
-      "alphabet_cta": "J'apprends l'alphabet"
+      "alphabet_cta": "J'apprends l'alphabet",
+      "more_soon": "Plus de leçons très bientôt..."
     }
   }
 }

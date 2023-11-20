@@ -3,7 +3,7 @@ import { Image } from 'react-native-ui-lib'
 
 import { Link } from 'expo-router'
 
-import { Button, View } from '@/components/themed'
+import { Button, Text, View } from '@/components/themed'
 
 export default function HomeScreen() {
   const { t } = useTranslation()
@@ -16,6 +16,9 @@ export default function HomeScreen() {
       <Link href="/(tabs)/(home)/alphabet" asChild>
         <Button title={t('home.screen.alphabet_cta')} label={t('home.screen.alphabet_cta')} />
       </Link>
+      <Text h6 marginT-40>
+        {t('home.screen.more_soon')}
+      </Text>
     </View>
   )
 }

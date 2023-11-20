@@ -266,10 +266,10 @@ export const LETTER_TYPE_COLORS = {
 
 export const MARKDOWN_STYLE = {
   body: { fontFamily: fonts.fig3 },
-  text: { fontFamily: fonts.fig3 },
   strong: { fontFamily: fonts.ibm6 },
+  // text: { /*fontFamily: fonts.fig3*/ fontSize: 16 },
   heading1: { fontFamily: fonts.ibm6 },
   heading2: { fontFamily: fonts.ibm6 },
-  heading3: { fontFamily: fonts.ibm6 },
+  heading3: { fontFamily: fonts.ibm6, fontSize: 20 },
   heading4: { fontFamily: fonts.ibm6 },
 }

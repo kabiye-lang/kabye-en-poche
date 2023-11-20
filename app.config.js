@@ -16,6 +16,7 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
+      bundleIdentifier: 'com.kabiyeenpoche.app',
       supportsTablet: true,
     },
     android: {
@@ -23,6 +24,8 @@ export default {
         foregroundImage: './assets/images/adaptive-icon.png',
         backgroundColor: '#ffffff',
       },
+      package: 'com.kabiyeenpoche.app',
+      permissions: ['android.permission.INTERNET'],
     },
     web: {
       bundler: 'metro',

@@ -18,7 +18,7 @@ export default function AlphabetScreen() {
       <FlatList
         numColumns={3}
         data={alphabetList}
-        contentContainerStyle={{ paddingHorizontal: 15, gap: 5 }}
+        contentContainerStyle={{ paddingHorizontal: 15, gap: 5, paddingBottom: 20 }}
         columnWrapperStyle={{ maxWidth: '33.33%', gap: 5 }}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={() => (

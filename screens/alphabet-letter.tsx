@@ -124,9 +124,6 @@ export default function AlphabetLetterScreen() {
           />
         </View>
         <View paddingV-10 paddingH-15>
-          {/* <Text family="fig6" marginT-30 marginB-10 lg $textNeutralHeavy>
-            Description
-          </Text> */}
           <Markdown style={MARKDOWN_STYLE}>{letter.description_fr ?? ''}</Markdown>
         </View>
         <View style={{ height: 70 }} />
