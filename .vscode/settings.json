@@ -1,0 +1,39 @@
+{
+    "editor.formatOnSave": true,
+    "[yml]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": false
+        }
+    },
+    "javascript.validate.enable": true,
+    "[javascript]": {
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+            "source.fixAll.stylelint": false
+        },
+    },
+    "[typescript]": {
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+            "source.fixAll.stylelint": false,
+            "source.fixAll.deno": false
+        },
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+            "source.fixAll.stylelint": false,
+            "source.fixAll.deno": false
+        },
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.validate.enable": true,
+    "typescript.format.enable": false,
+    "i18n-ally.localesPaths": [
+        "i18n"
+    ],
+    "i18n-ally.keystyle": "nested"
+}
