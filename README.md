@@ -1,4 +1,4 @@
-# Kabyè en poche
+# Kabiyè en poche
 
 ## Developement
 
