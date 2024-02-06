@@ -2,15 +2,15 @@
     "editor.formatOnSave": true,
     "[yml]": {
         "editor.codeActionsOnSave": {
-            "source.fixAll": false
+            "source.fixAll": "never"
         }
     },
     "javascript.validate.enable": true,
     "[javascript]": {
         "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": true,
-            "source.fixAll.stylelint": false
+            "source.fixAll.eslint": "explicit",
+            "source.fixAll.stylelint": "never"
         },
     },
     "[typescript]": {
@@ -35,5 +35,12 @@
     "i18n-ally.localesPaths": [
         "i18n"
     ],
-    "i18n-ally.keystyle": "nested"
+    "i18n-ally.keystyle": "nested",
+    "[typescript][typescriptreact]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit",
+            "source.fixAll.stylelint": "never",
+            "source.fixAll.deno": "never"
+        }
+    }
 }
