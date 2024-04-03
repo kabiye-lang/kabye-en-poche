@@ -16,17 +16,17 @@
     "[typescript]": {
         "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": true,
-            "source.fixAll.stylelint": false,
-            "source.fixAll.deno": false
+            "source.fixAll.eslint": "explicit",
+            "source.fixAll.stylelint": "never",
+            "source.fixAll.deno": "never"
         },
     },
     "[typescriptreact]": {
         "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": true,
-            "source.fixAll.stylelint": false,
-            "source.fixAll.deno": false
+            "source.fixAll.eslint": "explicit",
+            "source.fixAll.stylelint": "never",
+            "source.fixAll.deno": "never"
         },
     },
     "typescript.tsdk": "node_modules/typescript/lib",
