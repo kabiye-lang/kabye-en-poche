@@ -4,6 +4,7 @@ const https = require('https')
 const fs = require('fs')
 
 const ncuCfg = require('./.ncurc.json')
+const pkg = require('./package.json')
 
 // SDK-50
 const url = 'https://raw.githubusercontent.com/expo/expo/sdk-50/packages/expo/bundledNativeModules.json'
@@ -19,7 +20,16 @@ const req = https.get(url, function (res) {
     try {
       json_data = JSON.parse(data)
       ncuCfg.reject = ['expo', ...Object.keys(json_data)]
+      Object.keys(json_data).forEach((dep) => {
+        if (pkg.dependencies[dep]) {
+          pkg.dependencies[dep] = json_data[dep]
+        }
+        if (pkg.devDependencies[dep]) {
+          pkg.devDependencies[dep] = json_data[dep]
+        }
+      })
       fs.writeFileSync('.ncurc.json', JSON.stringify(ncuCfg, null, 2))
+      fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
     } catch (error) {
       console.error(error)
     }
