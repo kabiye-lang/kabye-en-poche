@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import 'intl-pluralrules'
 
@@ -132,20 +133,22 @@ function RootLayoutNav() {
     <ThemeProvider value={getNavigationTheme()}>
       <I18nextProvider i18n={i18n}>
         <StatusBar style={getStatusBarStyle()} backgroundColor={getStatusBarBGColor()} />
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
-          <Stack.Screen
-            name="alphabet/[letter]"
-            /*getId={() => String(Date.now())}*/ options={{
-              title: '',
-              headerShown: false,
-              headerTransparent: true,
-            }}
-          />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-          <Stack.Screen name="terms-and-conditions" options={{ title: '' }} />
-        </Stack>
+            <Stack.Screen
+              name="alphabet/[letter]"
+              /*getId={() => String(Date.now())}*/ options={{
+                title: '',
+                headerShown: false,
+                headerTransparent: true,
+              }}
+            />
+            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+            <Stack.Screen name="terms-and-conditions" options={{ title: '' }} />
+          </Stack>
+        </GestureHandlerRootView>
       </I18nextProvider>
     </ThemeProvider>
   )

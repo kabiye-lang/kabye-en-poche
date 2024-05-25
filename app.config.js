@@ -3,7 +3,7 @@ import pkg from './package.json'
 export default {
   expo: {
     name: 'Kabiyè en poche',
-    slug: 'kabiye-lang-mobile-app',
+    slug: 'kabiyeenpoche',
     version: pkg.version,
     orientation: 'portrait',
     icon: './assets/images/icon.png',

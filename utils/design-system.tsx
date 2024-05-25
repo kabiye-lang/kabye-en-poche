@@ -23,9 +23,15 @@ const stores: { ui: { isAppearanceSystem: boolean; appearance: Appearance } } = 
 // =============
 
 export const brandColors = {
-  primary: '#5383b8', // blue
-  secondary: '#469c57', // green
-  accent: '#fed330', // yellow
+  primary: '#6200EE',
+  secondary: '#03DAC6',
+  bgGrey: '#F5F5F5',
+  textDark: '#212121',
+  accent: '#FF5722',
+  textLight: '#FFFFFF',
+  textGrey: '#757575',
+}
+export const brandThemeColors = {
   _black: Colors.rgba(20, 20, 20, 1),
   _black2: Colors.rgba(50, 50, 50, 1),
   _white: Colors.rgba(250, 250, 250, 1),
@@ -90,19 +96,19 @@ export function combineStyles<T>(...styles: StyleProp<T>[]) {
 
 const themes: Record<Appearance, ThemeColors> = {
   system: {
-    textColor: brandColors._black,
-    bgColor: brandColors._white,
-    bg2Color: brandColors._white2,
+    textColor: brandThemeColors._black ?? '',
+    bgColor: brandThemeColors._white ?? '',
+    bg2Color: brandThemeColors._white2 ?? '',
   },
   light: {
-    textColor: brandColors._black,
-    bgColor: brandColors._white,
-    bg2Color: brandColors._white2,
+    textColor: brandThemeColors._black ?? '',
+    bgColor: brandThemeColors._white ?? '',
+    bg2Color: brandThemeColors._white2 ?? '',
   },
   dark: {
-    textColor: brandColors._white,
-    bgColor: brandColors._black,
-    bg2Color: brandColors._black2,
+    textColor: brandThemeColors._white ?? '',
+    bgColor: brandThemeColors._black ?? '',
+    bg2Color: brandThemeColors._black2 ?? '',
   },
 }
 

@@ -59,7 +59,12 @@
     "title": "Clavier",
     "space": "Espace",
     "copy": "Copier",
-    "clear": "Effacer"
+    "clear": "Effacer",
+    "description": {
+      "line1": "Utilisez ce clavier pour écrire en Kabiyè. Lorsque vous avez fini, il vous suffit de copier/coller votre texte.",
+      "line2_2": "permet de mettre an majuscule. Appuyer longuement pour verouiller le mode MAJUSCULE.",
+      "line2_1": "La touche"
+    }
   },
   "navigation": {
     "home": {
@@ -77,8 +82,21 @@
   },
   "home": {
     "screen": {
-      "alphabet_cta": "J'apprends l'alphabet",
-      "more_soon": "Plus de leçons très bientôt..."
+      "learn_description": "Master the Kabiyè language effortlessly.",
+      "learn_kabiye": "Learn Kabiyè easily and quickly!",
+      "learning_modules": "Learning Modules",
+      "alphabet": "Alphabet",
+      "alphabet_description": "Learn the basics of the Kabiyè alphabet.",
+      "basics": "Basics",
+      "basics_description": "Start with basic phrases.",
+      "vocabulary": "Vocabulary",
+      "vocabulary_description": "Improve your Kabiyè vocabulary.",
+      "show_more": "Show More",
+      "tips_resources": "Tips & Resources",
+      "learning_tips": "Learning Tips",
+      "learning_tips_description": "Discover tips for more effective learning.",
+      "reference_materials": "Reference Materials",
+      "reference_materials_description": "Access additional resources for learning Kabiyè."
     }
   }
 }

@@ -7,7 +7,7 @@ import * as Localization from 'expo-localization'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18n from 'i18next'
 
-// import translationEn from './i18n/en/translation.json'
+import translationEn from './i18n/en/translation.json'
 import translation from './i18n/fr/translation.json'
 
 export const defaultNS = 'translation'
@@ -15,9 +15,9 @@ export const resources = {
   fr: {
     translation,
   },
-  // en: {
-  //   translation: translationEn,
-  // },
+  en: {
+    translation: translationEn,
+  },
 } as const
 
 // http://i18next.com/docs/ownplugin/#languagedetector
@@ -55,7 +55,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .use(languageDetector)
   .init({
-    fallbackLng: 'fr',
+    fallbackLng: 'en',
     resources,
     interpolation: {
       escapeValue: false, // react already safes from xss

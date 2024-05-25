@@ -103,7 +103,6 @@ export default function ResourcesScreen() {
               </Text>
               {listItem.items.map((item) => {
                 return (
-                  // @ts-expect-error Type 'string' is not assignable to type 'StaticRoutes | RelativePathString | `http${string}`
                   <Link asChild href={item.href} key={item.href}>
                     {renderListItem(item)}
                   </Link>

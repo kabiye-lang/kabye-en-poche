@@ -19,7 +19,7 @@ const req = https.get(url, function (res) {
   res.on('end', function () {
     try {
       json_data = JSON.parse(data)
-      ncuCfg.reject = ['expo', ...Object.keys(json_data)]
+      ncuCfg.reject = ['expo', 'eslint', ...Object.keys(json_data)]
       Object.keys(json_data).forEach((dep) => {
         if (pkg.dependencies[dep]) {
           pkg.dependencies[dep] = json_data[dep]

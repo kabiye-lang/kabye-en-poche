@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Dimensions } from 'react-native'
 import { Colors, TextField } from 'react-native-ui-lib'
 
+// import { KeyboardAccessoryView } from 'react-native-ui-lib/keyboard'
+
 import * as Clipboard from 'expo-clipboard'
 
 import { ArrowFatLinesUp, ArrowFatLineUp, Backspace, Dot, KeyReturn } from '@/components/icons'
@@ -68,31 +70,53 @@ export default function KeyboardScreen() {
   }
   const buttonWidth = (Dimensions.get('screen').width - 10) / 11 - 5
 
+  const renderButton = (letter: { id: string; caps: string }) => {
+    return (
+      <Button
+        key={letter.id}
+        title={letter.id}
+        label={capsLock > 0 ? letter.caps : letter.id}
+        marginV-0
+        marginH-0
+        paddingH-0
+        paddingT-0
+        paddingB-0
+        style={{ width: buttonWidth, minWidth: buttonWidth, height: 35 }}
+        labelStyle={{ fontFamily: fonts.fig3, fontSize: 20, color: Colors.$textDefault }}
+        borderRadius={5}
+        backgroundColor={Colors.white}
+        onPress={() => changeText(letter)}
+      />
+    )
+  }
+
   return (
-    <View flex paddingH-5 paddingB-20>
-      <ScreenTitle title={t('keyboard.title')} />
-      {/* TODO: translation */}
-      <Text>
-        Utilisez ce clavier pour écrire en Kabiyè. Lorsque vous avez fini, il vous suffit de copier/coller votre texte.
-      </Text>
-      <Text>
-        La touche <ArrowFatLineUp weight="regular" size={16} /> permet de mettre an majuscule. Appuyer longuement pour
-        verouiller le clavier en mode MAJUSCULE.
-      </Text>
+    <View flex>
+      <View paddingH-10>
+        <ScreenTitle title={t('keyboard.title')} />
+        {/* TODO: translation */}
+        <Text>{t('keyboard.description.line1')}</Text>
+        <Text>
+          {t('keyboard.description.line2_1')} <ArrowFatLineUp weight="regular" size={16} />{' '}
+          {t('keyboard.description.line2_2')}
+        </Text>
+      </View>
       <View flex style={{ justifyContent: 'flex-end' }}>
-        <TextField
-          value={content}
-          multiline
-          fieldStyle={{
-            borderWidth: 1,
-            width: '100%',
-            borderRadius: 10,
-            borderColor: Colors.grey40,
-            minHeight: 100,
-            maxHeight: 100,
-            padding: 5,
-          }}
-        />
+        <View paddingH-10>
+          <TextField
+            value={content}
+            multiline
+            fieldStyle={{
+              borderWidth: 1,
+              width: '100%',
+              borderRadius: 10,
+              borderColor: Colors.primary,
+              minHeight: 120,
+              maxHeight: 120,
+              padding: 10,
+            }}
+          />
+        </View>
         <View style={{ flexWrap: 'wrap', gap: 5 }} row centerH marginB-10 marginT-20>
           <Button
             title="clear"
@@ -116,113 +140,122 @@ export default function KeyboardScreen() {
             paddingH-0
             paddingT-0
             paddingB-0
-            outline
+            // outline
             style={{ width: 90, minWidth: 90, height: 35, borderColor: Colors.primary }}
-            labelStyle={{ color: Colors.primary }}
+            // labelStyle={{ color: Colors.primary }}
+            // backgroundColor={Colors.secondary}
             borderRadius={5}
             onPress={async () => await Clipboard.setStringAsync(content)}
           />
         </View>
 
-        <View style={{ flexWrap: 'wrap', gap: 5, justifyContent: 'center' }} row marginT-10>
-          {OTHER_CHARACTERS.concat(alphabetList)
-            // @ts-expect-error hideInKeyboard doesn't exist on tpe
-            .filter((letter) => !letter.hideInKeyboard)
-            .map((letter) => (
-              <Button
-                key={letter.id}
-                title={letter.id}
-                label={capsLock > 0 ? letter.caps : letter.id}
-                marginV-0
-                marginH-0
-                paddingH-0
-                paddingT-0
-                paddingB-0
-                style={{ width: buttonWidth, minWidth: buttonWidth, height: 35 }}
-                labelStyle={{ fontFamily: fonts.fig3, fontSize: 20 }}
-                borderRadius={5}
-                onPress={() => changeText(letter)}
-              />
-            ))}
+        {/* <KeyboardAccessoryView
+          renderContent={() => (
+            <> */}
+        <View padding-5 paddingB-20 bg-grey60>
+          <View style={{ flexWrap: 'wrap', gap: 5, justifyContent: 'center' }} row marginT-10>
+            {OTHER_CHARACTERS.concat(alphabetList)
+              // @ts-expect-error hideInKeyboard doesn't exist on tpe
+              .filter((letter) => !letter.hideInKeyboard)
+              .map((letter) => renderButton(letter))}
+          </View>
+          <View style={{ flexWrap: 'wrap', gap: 5 }} row centerH marginT-10>
+            <Button
+              title="cap lock"
+              label=""
+              marginV-0
+              marginH-0
+              paddingH-0
+              paddingT-0
+              paddingB-0
+              style={{ width: 50, minWidth: 50, height: 35 }}
+              labelStyle={{ color: Colors.$textDefault }}
+              backgroundColor={Colors.white}
+              borderRadius={5}
+              onPress={() => setCapsLock((capsLockOld) => (capsLockOld > 0 ? 0 : 1))}
+              onLongPress={() => setCapsLock((capsLockOld) => (capsLockOld > 0 ? 0 : 2))}
+            >
+              {capsLock === 2 ? (
+                <ArrowFatLinesUp weight="fill" />
+              ) : (
+                <ArrowFatLineUp weight={capsLock === 1 ? 'fill' : 'light'} />
+              )}
+            </Button>
+            <Button
+              title="dot"
+              label=""
+              marginV-0
+              marginH-0
+              paddingH-0
+              paddingT-0
+              paddingB-0
+              style={{ width: 50, minWidth: 50, height: 35 }}
+              borderRadius={5}
+              labelStyle={{ color: Colors.$textDefault }}
+              backgroundColor={Colors.white}
+              onPress={() => changeText({ id: '.' })}
+            >
+              <Dot />
+            </Button>
+            <Button
+              title="space"
+              label={t('keyboard.space')}
+              marginV-0
+              marginH-0
+              paddingH-0
+              paddingT-0
+              paddingB-0
+              style={{ width: 90, minWidth: 90, height: 35 }}
+              borderRadius={5}
+              labelStyle={{ color: Colors.$textDefault }}
+              backgroundColor={Colors.white}
+              onPress={() => changeText({ id: ' ' })}
+            />
+            <Button
+              title="backspace"
+              label=""
+              marginV-0
+              marginH-0
+              paddingH-0
+              paddingT-0
+              paddingB-0
+              style={{ width: 50, minWidth: 50, height: 35 }}
+              borderRadius={5}
+              labelStyle={{ color: Colors.$textDefault }}
+              backgroundColor={Colors.white}
+              onPress={() => setContent((content) => content.substring(0, content.length - 1))}
+            >
+              <Backspace weight="light" />
+            </Button>
+            <Button
+              title="enter"
+              label=""
+              marginV-0
+              marginH-0
+              paddingH-0
+              paddingT-0
+              paddingB-0
+              style={{ width: 50, minWidth: 50, height: 35 }}
+              borderRadius={5}
+              labelStyle={{ color: Colors.$textDefault }}
+              backgroundColor={Colors.white}
+              onPress={() => {
+                changeText({ id: '\n' })
+                setCapsLock(1)
+              }}
+            >
+              <KeyReturn weight="light" />
+            </Button>
+          </View>
         </View>
-        <View style={{ flexWrap: 'wrap', gap: 5 }} row centerH marginT-10>
-          <Button
-            title="cap lock"
-            label=""
-            marginV-0
-            marginH-0
-            paddingH-0
-            paddingT-0
-            paddingB-0
-            style={{ width: 50, minWidth: 50, height: 35 }}
-            borderRadius={5}
-            onPress={() => setCapsLock((capsLockOld) => (capsLockOld > 0 ? 0 : 1))}
-            onLongPress={() => setCapsLock((capsLockOld) => (capsLockOld > 0 ? 0 : 2))}
-          >
-            {capsLock === 2 ? (
-              <ArrowFatLinesUp weight="fill" color={Colors.white} />
-            ) : (
-              <ArrowFatLineUp weight={capsLock === 1 ? 'fill' : 'light'} color={Colors.white} />
-            )}
-          </Button>
-          <Button
-            title="dot"
-            label=""
-            marginV-0
-            marginH-0
-            paddingH-0
-            paddingT-0
-            paddingB-0
-            style={{ width: 50, minWidth: 50, height: 35 }}
-            borderRadius={5}
-            onPress={() => changeText({ id: '.' })}
-          >
-            <Dot color={Colors.white} />
-          </Button>
-          <Button
-            title="space"
-            label={t('keyboard.space')}
-            marginV-0
-            marginH-0
-            paddingH-0
-            paddingT-0
-            paddingB-0
-            style={{ width: 90, minWidth: 90, height: 35 }}
-            borderRadius={5}
-            onPress={() => changeText({ id: ' ' })}
-          />
-          <Button
-            title="backspace"
-            label=""
-            marginV-0
-            marginH-0
-            paddingH-0
-            paddingT-0
-            paddingB-0
-            style={{ width: 50, minWidth: 50, height: 35 }}
-            borderRadius={5}
-            onPress={() => setContent((content) => content.substring(0, content.length - 1))}
-          >
-            <Backspace color={Colors.white} />
-          </Button>
-          <Button
-            title="enter"
-            label=""
-            marginV-0
-            marginH-0
-            paddingH-0
-            paddingT-0
-            paddingB-0
-            style={{ width: 50, minWidth: 50, height: 35 }}
-            borderRadius={5}
-            onPress={() => {
-              changeText({ id: '\n' })
-              setCapsLock(1)
-            }}
-          >
-            <KeyReturn color={Colors.white} />
-          </Button>
-        </View>
+        {/* </>
+          )}
+          //  kbInputRef={this.inputRef}
+          //  kbComponent={}
+          //  kbInitialProps={}
+          //  onHeightChanged={this.onHeightChanged()}
+          // scrollBehavior={KeyboardAccessoryView.scrollBehaviors.NONE}
+        /> */}
       </View>
     </View>
   )
