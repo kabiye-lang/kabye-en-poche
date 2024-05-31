@@ -1,28 +1,30 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import { Card, Colors, Text, View } from 'react-native-ui-lib'
+import { Card, Colors, View } from 'react-native-ui-lib'
 
 import { LinearGradient } from 'expo-linear-gradient'
 import { Link } from 'expo-router'
 
 import { CaretRight } from '@/components/icons'
+import { Text } from '@/components/themed'
+import { units } from '@/utils/units'
 
 const HomeScreen = () => {
   const { t } = useTranslation()
 
   return (
-    <View flex useSafeArea style={{ backgroundColor: Colors.bgGrey }}>
+    <View flex useSafeArea backgroundColor={Colors.bgGrey}>
       <ScrollView contentContainerStyle={{ paddingVertical: 20, paddingHorizontal: 10 }}>
-        <View flex paddingH-10 paddingT-20>
+        <View flex paddingH-10>
           {/* Redesigned Top Card */}
           <Card marginB-20 padding-0 style={styles.cardShadow}>
             <LinearGradient colors={[Colors.primary, Colors.secondary]} style={styles.gradient}>
               <View style={styles.cardContent}>
-                <Text text50 white marginB-10 style={styles.boldText}>
+                <Text text50 white marginB-10 family="fig7">
                   {t('home.screen.learn_kabiye')}
                 </Text>
-                <Text text70 white marginT-10>
+                <Text text70 white marginT-10 family="fig5">
                   {t('home.screen.learn_description')}
                 </Text>
               </View>
@@ -30,105 +32,54 @@ const HomeScreen = () => {
           </Card>
 
           <View marginB-20>
-            <Text text60 marginB-10 style={{ fontWeight: 'bold', color: Colors.textDark }}>
-              {t('home.screen.learning_modules')}
+            <Text h5 marginB-10 family="ibm6">
+              {t('home.screen.learning_units')}
             </Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-              <View style={{ width: '48%', marginBottom: 10 }}>
-                <Card
-                  padding-20
-                  style={{
-                    backgroundColor: Colors.white,
-                    borderRadius: 12,
-                    height: 150,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.2,
-                    shadowRadius: 4,
-                  }}
-                >
-                  <Link href="/module/alphabet">
-                    <TouchableOpacity>
-                      <View>
-                        <Text text70 marginT-10 style={{ fontWeight: 'bold', color: Colors.primary }}>
-                          {t('home.screen.alphabet')}
-                        </Text>
-                        <Text text80 marginT-10 style={{ color: Colors.textGrey }}>
-                          {t('home.screen.alphabet_description')}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  </Link>
-                </Card>
-              </View>
-              <View style={{ width: '48%', marginBottom: 10 }}>
-                <Card
-                  padding-20
-                  style={{
-                    backgroundColor: Colors.white,
-                    borderRadius: 12,
-                    height: 150,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.2,
-                    shadowRadius: 4,
-                  }}
-                >
-                  <Link href="/module/basics">
-                    <TouchableOpacity>
-                      <View>
-                        <Text text70 marginT-10 style={{ fontWeight: 'bold', color: Colors.primary }}>
-                          {t('home.screen.basics')}
-                        </Text>
-                        <Text text80 marginT-10 style={{ color: Colors.textGrey }}>
-                          {t('home.screen.basics_description')}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  </Link>
-                </Card>
-              </View>
-              <View style={{ width: '48%', marginBottom: 10 }}>
-                <Card
-                  padding-20
-                  style={{
-                    backgroundColor: Colors.white,
-                    borderRadius: 12,
-                    height: 150,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.2,
-                    shadowRadius: 4,
-                  }}
-                >
-                  <Link href="/module/vocabulary">
-                    <TouchableOpacity>
-                      <View>
-                        <Text text70 marginT-10 style={{ fontWeight: 'bold', color: Colors.primary }}>
-                          {t('home.screen.vocabulary')}
-                        </Text>
-                        <Text text80 marginT-10 style={{ color: Colors.textGrey }}>
-                          {t('home.screen.vocabulary_description')}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  </Link>
-                </Card>
-              </View>
+              {units.slice(0, 3).map((unit) => (
+                <View style={{ width: '48%', marginBottom: 10 }} key={unit.id}>
+                  <Card
+                    paddingH-15
+                    paddingV-10
+                    style={{
+                      backgroundColor: Colors.white,
+                      borderRadius: 12,
+                      height: 170,
+                      shadowColor: '#000',
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.2,
+                      shadowRadius: 2,
+                    }}
+                  >
+                    <Link href={`/unit/${unit.id}`} asChild>
+                      <TouchableOpacity>
+                        <View>
+                          <Text text70 marginT-10 style={{ fontWeight: 'bold', color: Colors.primary }}>
+                            {unit.name}
+                          </Text>
+                          <Text text80 marginT-10 style={{ color: Colors.textGrey }}>
+                            {unit.description}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </Link>
+                  </Card>
+                </View>
+              ))}
               <View style={{ width: '48%', marginBottom: 10 }}>
                 <Card
                   padding-20
                   style={{
                     backgroundColor: Colors.accent,
                     borderRadius: 12,
-                    height: 150,
+                    height: 170,
                     shadowColor: '#000',
                     shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: 0.2,
-                    shadowRadius: 4,
+                    shadowRadius: 2,
                   }}
                 >
-                  <Link href="/learning">
+                  <Link href="/units" asChild>
                     <TouchableOpacity>
                       <View
                         style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '100%' }}
@@ -146,7 +97,7 @@ const HomeScreen = () => {
           </View>
 
           <View marginB-20>
-            <Text text60 marginB-10 style={{ fontWeight: 'bold', color: Colors.textDark }}>
+            <Text h5 marginB-10 family="ibm6">
               {t('home.screen.tips_resources')}
             </Text>
             <Card
@@ -160,7 +111,7 @@ const HomeScreen = () => {
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.2,
-                shadowRadius: 4,
+                shadowRadius: 2,
               }}
             >
               <Link
@@ -191,7 +142,7 @@ const HomeScreen = () => {
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.2,
-                shadowRadius: 4,
+                shadowRadius: 2,
               }}
             >
               <Link
@@ -224,7 +175,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowRadius: 2,
   },
   gradient: {
     borderRadius: 12,

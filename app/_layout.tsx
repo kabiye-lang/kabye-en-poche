@@ -145,6 +145,35 @@ function RootLayoutNav() {
                 headerTransparent: true,
               }}
             />
+
+            <Stack.Screen
+              name="unit/[id]"
+              /*getId={() => String(Date.now())}*/ options={{
+                title: '',
+                // headerShown: false,
+                headerBackTitle: '',
+                headerTransparent: true,
+              }}
+            />
+
+            <Stack.Screen
+              name="lesson/[id]"
+              /*getId={() => String(Date.now())}*/ options={{
+                title: '',
+                // headerShown: false,
+                headerBackTitle: '',
+                headerTransparent: false,
+              }}
+            />
+
+            <Stack.Screen
+              name="word/[id]"
+              /*getId={() => String(Date.now())}*/ options={{
+                // title: '',
+                // headerShown: false,
+                headerTransparent: false,
+              }}
+            />
             <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
             <Stack.Screen name="terms-and-conditions" options={{ title: '' }} />
           </Stack>

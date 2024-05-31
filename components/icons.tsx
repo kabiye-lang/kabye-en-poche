@@ -5,6 +5,7 @@ import Backspace from 'phosphor-react-native/src/icons/Backspace'
 import BookOpenText from 'phosphor-react-native/src/icons/BookOpenText'
 import CaretLeft from 'phosphor-react-native/src/icons/CaretLeft'
 import CaretRight from 'phosphor-react-native/src/icons/CaretRight'
+import ChatCircleDots from 'phosphor-react-native/src/icons/ChatCircleDots'
 import Dot from 'phosphor-react-native/src/icons/Dot'
 import Keyboard from 'phosphor-react-native/src/icons/Keyboard'
 import KeyReturn from 'phosphor-react-native/src/icons/KeyReturn'
@@ -24,4 +25,5 @@ export {
   Backspace,
   KeyReturn,
   Dot,
+  ChatCircleDots,
 }

@@ -1,3 +1,3 @@
-import AlphabetScreen from '@/screens/alphabet'
+import AlphabetListScreen from '@/screens/alphabet-list'
 
-export default AlphabetScreen
+export default AlphabetListScreen

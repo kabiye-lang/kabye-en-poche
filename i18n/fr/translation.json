@@ -84,7 +84,7 @@
     "screen": {
       "learn_description": "Master the Kabiyè language effortlessly.",
       "learn_kabiye": "Learn Kabiyè easily and quickly!",
-      "learning_modules": "Learning Modules",
+      "learning_units": "Learning Units",
       "alphabet": "Alphabet",
       "alphabet_description": "Learn the basics of the Kabiyè alphabet.",
       "basics": "Basics",
@@ -97,6 +97,22 @@
       "learning_tips_description": "Discover tips for more effective learning.",
       "reference_materials": "Reference Materials",
       "reference_materials_description": "Access additional resources for learning Kabiyè."
+    }
+  },
+  "units": {
+    "screen": {
+      "title": "Leçons"
+    }
+  },
+  "lesson": {
+    "screen": {
+      "play_audio": "PLay",
+      "take_quiz": "Quiz"
+    }
+  },
+  "unit": {
+    "screen": {
+      "lessons": "Leçons"
     }
   }
 }

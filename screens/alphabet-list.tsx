@@ -11,7 +11,7 @@ import { Text, View } from '@/components/themed'
 import alphabetList from '@/utils/data/alphabet.json'
 import { LETTER_TYPE_COLORS, MARKDOWN_STYLE } from '@/utils/design-system'
 
-export default function AlphabetScreen() {
+export default function AlphabetListScreen() {
   const { t } = useTranslation()
   return (
     <View flex>

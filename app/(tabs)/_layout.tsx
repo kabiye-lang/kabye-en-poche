@@ -21,6 +21,7 @@ export default function TabLayout() {
         options={{
           title: t('navigation.home.title'),
           tabBarIcon: ({ color, focused }) => <Lightbulb color={color} weight={focused ? 'fill' : 'light'} />,
+          href: '/',
           // headerRight: () => (
           //   <Link href="/modal" asChild>
           //     <Pressable>
@@ -38,8 +39,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="dictionary"
+        name="dictionnary"
         options={{
+          href: '/dictionnary',
           title: t('navigation.dictionary.title'),
           tabBarIcon: ({ color, focused }) => <BookOpenText color={color} weight={focused ? 'fill' : 'light'} />,
         }}

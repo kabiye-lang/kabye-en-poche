@@ -1,6 +1,10 @@
+import { useTranslation } from 'react-i18next'
+
 import { Stack } from 'expo-router'
 
 export default function TabHomeLayout() {
+  const { t } = useTranslation()
+
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -9,6 +13,13 @@ export default function TabHomeLayout() {
         options={{
           title: '',
           headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="units"
+        options={{
+          title: t('units.screen.title'),
+          headerTransparent: false,
         }}
       />
     </Stack>
