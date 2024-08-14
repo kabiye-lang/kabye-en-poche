@@ -3,6 +3,8 @@
   "reject": [
     "expo",
     "eslint",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
     "@expo/metro-runtime",
     "@expo/vector-icons",
     "@react-native-async-storage/async-storage",
